@@ -1,0 +1,33 @@
+{
+  "kind": "collectionType",
+  "collectionName": "scadenza_fiscales",
+  "info": {
+    "singularName": "scadenza-fiscale",
+    "pluralName": "scadenza-fiscales",
+    "displayName": "Scadenza Fiscale",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "titolo": {
+      "type": "string"
+    },
+    "descrizione": {
+      "type": "blocks"
+    },
+    "data_scadenza": {
+      "type": "date"
+    },
+    "cartella": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::cartella.cartella",
+      "mappedBy": "scadenza_fiscale"
+    },
+    "inviata_notifica": {
+      "type": "boolean"
+    }
+  }
+}

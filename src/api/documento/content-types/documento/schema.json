@@ -1,0 +1,42 @@
+{
+  "kind": "collectionType",
+  "collectionName": "documentos",
+  "info": {
+    "singularName": "documento",
+    "pluralName": "documentos",
+    "displayName": "Documento"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "titolo": {
+      "type": "string"
+    },
+    "file": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": true
+    },
+    "descrizione": {
+      "type": "blocks"
+    },
+    "data_upload": {
+      "type": "datetime"
+    },
+    "visibile_al_cliente": {
+      "type": "boolean"
+    },
+    "cartella": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::cartella.cartella",
+      "inversedBy": "documentos"
+    }
+  }
+}

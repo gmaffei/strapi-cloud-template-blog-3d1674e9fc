@@ -1,0 +1,41 @@
+{
+  "kind": "collectionType",
+  "collectionName": "cartellas",
+  "info": {
+    "singularName": "cartella",
+    "pluralName": "cartellas",
+    "displayName": "Cartella"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "nome": {
+      "type": "string"
+    },
+    "documentos": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::documento.documento",
+      "mappedBy": "cartella"
+    },
+    "visibile_al_cliente": {
+      "type": "boolean"
+    },
+    "data_creazione": {
+      "type": "datetime"
+    },
+    "cliente": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::cliente.cliente",
+      "inversedBy": "cartellas"
+    },
+    "scadenza_fiscale": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::scadenza-fiscale.scadenza-fiscale",
+      "inversedBy": "cartella"
+    }
+  }
+}

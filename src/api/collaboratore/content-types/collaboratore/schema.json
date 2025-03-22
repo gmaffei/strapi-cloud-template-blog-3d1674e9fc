@@ -1,0 +1,32 @@
+{
+  "kind": "collectionType",
+  "collectionName": "collaboratores",
+  "info": {
+    "singularName": "collaboratore",
+    "pluralName": "collaboratores",
+    "displayName": "Collaboratore"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "nome": {
+      "type": "string"
+    },
+    "cognome": {
+      "type": "string"
+    },
+    "email": {
+      "type": "email"
+    },
+    "telefono": {
+      "type": "string"
+    },
+    "commercialista": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::commercialista.commercialista",
+      "inversedBy": "collaboratores"
+    }
+  }
+}

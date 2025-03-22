@@ -26,6 +26,18 @@
       "type": "relation",
       "relation": "oneToOne",
       "target": "plugin::users-permissions.user"
+    },
+    "collaboratores": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::collaboratore.collaboratore",
+      "mappedBy": "commercialista"
+    },
+    "clientes": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::cliente.cliente",
+      "mappedBy": "commercialista"
     }
   }
 }

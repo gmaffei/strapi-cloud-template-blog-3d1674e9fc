@@ -369,6 +369,118 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiCartellaCartella extends Struct.CollectionTypeSchema {
+  collectionName: 'cartellas';
+  info: {
+    displayName: 'Cartella';
+    pluralName: 'cartellas';
+    singularName: 'cartella';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    cliente: Schema.Attribute.Relation<'manyToOne', 'api::cliente.cliente'>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    data_creazione: Schema.Attribute.DateTime;
+    documentos: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::documento.documento'
+    >;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::cartella.cartella'
+    > &
+      Schema.Attribute.Private;
+    nome: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
+    scadenza_fiscale: Schema.Attribute.Relation<
+      'manyToOne',
+      'api::scadenza-fiscale.scadenza-fiscale'
+    >;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    visibile_al_cliente: Schema.Attribute.Boolean;
+  };
+}
+
+export interface ApiClienteCliente extends Struct.CollectionTypeSchema {
+  collectionName: 'clientes';
+  info: {
+    displayName: 'Cliente';
+    pluralName: 'clientes';
+    singularName: 'cliente';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    cartellas: Schema.Attribute.Relation<'oneToMany', 'api::cartella.cartella'>;
+    codice_fiscale: Schema.Attribute.String;
+    cognome: Schema.Attribute.String;
+    commercialista: Schema.Attribute.Relation<
+      'manyToOne',
+      'api::commercialista.commercialista'
+    >;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    email: Schema.Attribute.Email;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::cliente.cliente'
+    > &
+      Schema.Attribute.Private;
+    nome: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
+    telefono: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiCollaboratoreCollaboratore
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'collaboratores';
+  info: {
+    displayName: 'Collaboratore';
+    pluralName: 'collaboratores';
+    singularName: 'collaboratore';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    cognome: Schema.Attribute.String;
+    commercialista: Schema.Attribute.Relation<
+      'manyToOne',
+      'api::commercialista.commercialista'
+    >;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    email: Schema.Attribute.Email;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::collaboratore.collaboratore'
+    > &
+      Schema.Attribute.Private;
+    nome: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
+    telefono: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiCommercialistaCommercialista
   extends Struct.CollectionTypeSchema {
   collectionName: 'commercialistas';
@@ -381,7 +493,12 @@ export interface ApiCommercialistaCommercialista
     draftAndPublish: true;
   };
   attributes: {
+    clientes: Schema.Attribute.Relation<'oneToMany', 'api::cliente.cliente'>;
     cognome: Schema.Attribute.String;
+    collaboratores: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::collaboratore.collaboratore'
+    >;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -402,6 +519,76 @@ export interface ApiCommercialistaCommercialista
       'oneToOne',
       'plugin::users-permissions.user'
     >;
+  };
+}
+
+export interface ApiDocumentoDocumento extends Struct.CollectionTypeSchema {
+  collectionName: 'documentos';
+  info: {
+    displayName: 'Documento';
+    pluralName: 'documentos';
+    singularName: 'documento';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    cartella: Schema.Attribute.Relation<'manyToOne', 'api::cartella.cartella'>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    data_upload: Schema.Attribute.DateTime;
+    descrizione: Schema.Attribute.Blocks;
+    file: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios',
+      true
+    >;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::documento.documento'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    titolo: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    visibile_al_cliente: Schema.Attribute.Boolean;
+  };
+}
+
+export interface ApiScadenzaFiscaleScadenzaFiscale
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'scadenza_fiscales';
+  info: {
+    description: '';
+    displayName: 'Scadenza Fiscale';
+    pluralName: 'scadenza-fiscales';
+    singularName: 'scadenza-fiscale';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    cartella: Schema.Attribute.Relation<'oneToMany', 'api::cartella.cartella'>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    data_scadenza: Schema.Attribute.Date;
+    descrizione: Schema.Attribute.Blocks;
+    inviata_notifica: Schema.Attribute.Boolean;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::scadenza-fiscale.scadenza-fiscale'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    titolo: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
   };
 }
 
@@ -914,7 +1101,12 @@ declare module '@strapi/strapi' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
+      'api::cartella.cartella': ApiCartellaCartella;
+      'api::cliente.cliente': ApiClienteCliente;
+      'api::collaboratore.collaboratore': ApiCollaboratoreCollaboratore;
       'api::commercialista.commercialista': ApiCommercialistaCommercialista;
+      'api::documento.documento': ApiDocumentoDocumento;
+      'api::scadenza-fiscale.scadenza-fiscale': ApiScadenzaFiscaleScadenzaFiscale;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;
