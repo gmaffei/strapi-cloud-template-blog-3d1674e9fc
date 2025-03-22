@@ -1,0 +1,31 @@
+{
+  "kind": "collectionType",
+  "collectionName": "commercialistas",
+  "info": {
+    "singularName": "commercialista",
+    "pluralName": "commercialistas",
+    "displayName": "Commercialista"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "nome": {
+      "type": "string"
+    },
+    "cognome": {
+      "type": "string"
+    },
+    "email": {
+      "type": "email"
+    },
+    "telefono": {
+      "type": "string"
+    },
+    "user": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
+    }
+  }
+}
